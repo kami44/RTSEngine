@@ -5,13 +5,13 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment
 {
-    public class Environment:GameObject
+    public abstract class Environment:GameObject
     {
         public Position Position { get; set; }
 
-        public Environment(Position position)
+        public Environment()
         {
-            Position = position;
+          
         }
     }
 }

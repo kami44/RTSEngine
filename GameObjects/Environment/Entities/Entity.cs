@@ -5,9 +5,9 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment.Entities
 {
-    public class Entity:Environment
+    public abstract class Entity:Environment
     {
-        public Entity(Position position):base(position)
+        public Entity():base()
         {
 
         }

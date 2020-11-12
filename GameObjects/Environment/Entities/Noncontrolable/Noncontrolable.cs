@@ -5,9 +5,9 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment.Entities.Noncontrolable
 {
-    public class Noncontrolable:Entity
+    public abstract class Noncontrolable:Entity
     {
-        public Noncontrolable(Position position):base(position)
+        public Noncontrolable():base()
         {
 
         }

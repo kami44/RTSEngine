@@ -11,7 +11,7 @@ namespace RTSEngine.GameObjects
     public class Faction
     {
         public string Name { get; set; }
-        public List<WorldspaceUnit> WorldspaceUnits { get; private set; }
+        public List<WorldspaceUnit> WorldspaceUnits { get; set; }
         public List<WorldspaceStructure> WorldspaceStructures { get; set; }
         public List<Unit> Units { get; set; }
         public List<Building> Buildings { get; set; }
@@ -26,11 +26,6 @@ namespace RTSEngine.GameObjects
             WorldspaceStructures = new List<WorldspaceStructure>();
             Units = new List<Unit>();
             Buildings = new List<Building>();
-        }
-
-        public void AddWorldSpaceUnit()
-        {
-           // WorldspaceUnits.Add(new WorldspaceUnit());
         }
     }
 }

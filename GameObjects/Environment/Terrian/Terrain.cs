@@ -5,10 +5,10 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment.Terrian
 {
-    public class Terrain:Environment
+    public abstract class Terrain:Environment
     {
 
-        public Terrain(Position position):base(position)
+        public Terrain():base()
         {
 
         }

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Components.Constructables
 {
-    public class Building : Constructable
+    public abstract class Building : Constructable
     {
 
-        public Building(string name,ResourseCost resourseCost, int damage):base(name, resourseCost, damage)
+        public Building(string name, int damage):base(name, damage)
         {
 
         }

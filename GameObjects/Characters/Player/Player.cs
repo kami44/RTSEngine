@@ -5,13 +5,13 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Characters.Player
 {
-    public class Player:Character
+    public abstract class Player:Character
     {
         public Constructable? Selection { get; set; }
         
-        public Player()
+        public Player(string name, Faction faction):base(name, faction)
         {
-
+            this.MyTurn = true;
         }
     }
 }

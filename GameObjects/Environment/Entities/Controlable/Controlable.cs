@@ -7,12 +7,12 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment.Entities.Controlable
 {
-    public class Controlable:Entity
+    public abstract class Controlable:Entity
     {
         public Character Owner { get; set; }
         public List<Unit> Units { get; set; }
 
-        public Controlable(Position position):base(position)
+        public Controlable():base()
         {
             Units = new List<Unit>();
         }

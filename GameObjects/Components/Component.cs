@@ -5,16 +5,21 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Components
 {
-    public class Component:GameObject
+    public abstract class Component : GameObject
     {
         public string Name { get; set; }
-        public ResourseCost ResourseCost { get; set; }
+        public IDictionary<Resource, int> ResourceCost {get;set;}
 
-        public Component(string name, ResourseCost resourseCost )
+        public Component(string name)
         {
             Name = name;
-            ResourseCost = resourseCost;
+            ResourceCost = new Dictionary<Resource, int>();
      
+        }
+
+        public void AddResourceCost(int cost, Resource resource)
+        {
+            ResourceCost.Add(resource, cost);
         }
     }
 }

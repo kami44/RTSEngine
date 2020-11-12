@@ -1,5 +1,6 @@
 ﻿using RTSEngine.GameObjects.Characters.Player;
 using RTSEngine.GameObjects.Components.Constructables;
+using RTSEngine.GameObjects.Environment.Entities.Noncontrolable;
 using RTSEngine.Tools;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,20 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Environment.Entities.Controlable.WorldspaceUnits
 {
-    public class WorldspaceUnit:Controlable
+    public abstract class WorldspaceUnit:Controlable
     {
-        public int actionPoints { get; set; }
+        public int ActionPoints { get; set; }
+        public int MaxActionPoints { get; set; }
         public Route? Route { get; set; }
-        
+        public Worldspace Worldspace { get; set; }
        
-        public WorldspaceUnit(Position position):base(position)
+        public WorldspaceUnit(int actionPoints):base()
         {
+            ActionPoints = actionPoints;
+            MaxActionPoints = actionPoints;
             Route = null;
-            
+            Worldspace = Worldspace.Instance;
+            Position = new Position(0,0);
         }
         
         //Action
@@ -29,19 +34,28 @@ namespace RTSEngine.GameObjects.Environment.Entities.Controlable.WorldspaceUnits
                 // tjek hvis den ikke er diagonal og ikke sig selv
                 if (target.Position.X != Position.X ^ target.Position.Y != Position.Y)
                 {
-                    Game.Combat(this, target);
+                    Game.Combat(this, target, Worldspace);
                 }
             }
         }
 
         public void Move()
         {
-            Worldspace.Movement(this);
-            for (int i=0; 1 < Route.Path.Count; i++)
+            
+            for (int i = 0; i < Route.Path.Count; i++)
             {
-                this.Position = Route.Next();
+                if (ActionPoints <= 0) break;
+                Position oldPosition = Position;
+                Position newPosition = Route.Next();
+                Position = newPosition;
+                Worldspace.Space[newPosition.X, newPosition.Y].TopLayer = this;
+                //Worldspace.Space[oldPosition.X, oldPosition.Y].TopLayer = new EmptySpace(oldPosition);
+                Worldspace.Space[oldPosition.X, oldPosition.Y].TopLayer = new EmptySpace();
+                ActionPoints--;
             }
-            Route = null;
+
+            if(ActionPoints > 0) Route = null;
+
         }
 
 
@@ -58,15 +72,35 @@ namespace RTSEngine.GameObjects.Environment.Entities.Controlable.WorldspaceUnits
             int X = destination.X - this.Position.X;
             int Y = destination.Y - this.Position.Y;
 
-            //mangler else, Y if
-            if (X > 0)
+            if (X >= 0)
             {
-                for (int i = this.Position.X + 1; i <= destination.X; i++)
+                for (int i = this.Position.X + 1; i < destination.X; i++)
                 {
-                    returnRoute.Add(new Position(X, Y));
+                    returnRoute.Add(new Position(i, Y));
                 }
             }
-            
+            else
+            {
+                for (int i = this.Position.X - 1; i >= destination.X; i--)
+                {
+                    returnRoute.Add(new Position(i, Y));
+                }
+            }
+            if (Y >= 0)
+            {
+                for (int i = this.Position.Y + 1; i < destination.Y; i++)
+                {
+                    returnRoute.Add(new Position(X, i));
+                }
+            }
+            else
+            {
+                for (int i = this.Position.Y - 1; i >= destination.Y; i--)
+                {
+                    returnRoute.Add(new Position(X, i));
+                }
+            }
+
 
             return new Route(returnRoute);
         }

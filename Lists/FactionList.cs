@@ -7,9 +7,7 @@ namespace RTSEngine.Lists
 {
     public class FactionList
     {
- 
-        public IDictionary<string,Faction> Factions { get; }
-        public int PlayerOwned { get; set; }
+        public IDictionary<string,Faction> Factions { get; private set; }
 
         public FactionList()
         {
@@ -17,9 +15,9 @@ namespace RTSEngine.Lists
             
         }
 
-        public void AddFaction(string name)
+        public void AddFaction(string name, Techtree techtree)
         {
-            Factions.Add(name, new Faction(name));
+            Factions.Add(name, new Faction(name, techtree));
         }
       
 

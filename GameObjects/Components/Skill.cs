@@ -4,9 +4,12 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Components
 {
-    public class Skill
+    public class Skill:Component
     {
-        public string Name { get; set; }
-        public int Cost { get; set; }
+
+        public Skill(string name):base(name)
+        {
+         
+        }
     }
 }

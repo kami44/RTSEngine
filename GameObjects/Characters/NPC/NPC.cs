@@ -5,8 +5,16 @@ using System.Text;
 
 namespace RTSEngine.GameObjects.Characters.NPC
 {
-    public class NPC:Character
+    public abstract class NPC:Character
     {
+        public NPC(string name, Faction faction):base(name, faction)
+        {
+            
+        }
 
+        public virtual void Turn()
+        {
+
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace RTSEngine.GameObjects.Environment.Entities.Noncontrolable
 {
     public class EmptySpace : Noncontrolable
     {
-        public EmptySpace(Position position) : base(position)
+        public EmptySpace() : base()
         {
 
         }

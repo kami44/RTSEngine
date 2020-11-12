@@ -2,6 +2,7 @@
 using RTSEngine.GameObjects.Characters;
 using RTSEngine.GameObjects.Characters.Player;
 using RTSEngine.GameObjects.Environment.Entities.Controlable.WorldspaceUnits;
+using RTSEngine.GameObjects.Environment.Entities.Noncontrolable;
 using RTSEngine.Tools;
 using System;
 using System.Collections.Generic;
@@ -11,28 +12,30 @@ namespace RTSEngine
 {
     public class Worldspace
     {
-        public static Tile[,] Space { get; set; }
+        private static int _maxX = 100;
+        private static int _maxY = 100;
 
 
-        public static void Movement(WorldspaceUnit unit)
+        private static Worldspace _instance;
+        public static int MaxX { get { return _maxX; } set { _maxX = value; } }
+        public static int MaxY { get { return _maxY; } set { _maxY = value; } }
+        public Tile[,] Space { get; set; }
+        public static Worldspace Instance
         {
-            for (int i = 0; i < unit.Route.Path.Count; i++)
+            get
             {
-                Position oldPosition = unit.Position;
-                Position newPosition = unit.Route.Next();
-                unit.Position = newPosition;
-                Space[newPosition.X, newPosition.Y].TopLayer = unit;
-                Space[oldPosition.X, oldPosition.Y].TopLayer = null;
-            }
-            unit.Route = null;
+                if (_instance == null) _instance = new Worldspace();
+                return _instance;
+            } 
         }
 
-        public void Interact(WorldspaceUnit target, Player owner)
-        {
-            if (true)
-            {
 
-            }
+
+        private Worldspace()
+        {
+            Space = new Tile[_maxX, _maxY];
         }
+
+
     }
 }
